@@ -1,0 +1,141 @@
+
+// import { Student, AcademicYear, TranscriptData, GradeDescriptor } from '@/types';
+
+// export const mockStudents: Student[] = [
+//   {
+//     id: 'STU-00082',
+//     name: 'Jessica Martens',
+//     program: 'DP',
+//     programLabel: 'DP Program: Grade 12',
+//     grade: 12,
+//     dateOfBirth: '21 Feb 2008',
+//     gender: 'Female',
+//     nationality: 'Egyptian',
+//     dateOfGraduation: '23 May 2026',
+//   },
+//   {
+//     id: 'STU-001583',
+//     name: 'Daniel Johnson',
+//     program: 'MYP',
+//     programLabel: 'MY Program: Grade 10',
+//     grade: 10,
+//     dateOfBirth: '15 Mar 2010',
+//     gender: 'Male',
+//     nationality: 'American',
+//     dateOfGraduation: '23 May 2028',
+//   },
+//   {
+//     id: 'STU-002034',
+//     name: 'Emily Reyes',
+//     program: 'MYP',
+//     programLabel: 'MY Program: Grade 9',
+//     grade: 9,
+//     dateOfBirth: '08 Jul 2011',
+//     gender: 'Female',
+//     nationality: 'Filipino',
+//     dateOfGraduation: '23 May 2029',
+//   },
+//   {
+//     id: 'STU-001711',
+//     name: 'Aaron Patel',
+//     program: 'DP',
+//     programLabel: 'DP Program: Grade 11',
+//     grade: 11,
+//     dateOfBirth: '02 Nov 2009',
+//     gender: 'Male',
+//     nationality: 'Indian',
+//     dateOfGraduation: '23 May 2027',
+//   },
+// ];
+
+// export const mockAcademicYears: AcademicYear[] = [
+//   {
+//     id: 'dp-12-2025',
+//     program: 'DP',
+//     gradeLevel: 'Grade 12',
+//     academicYear: '2025-2026',
+//     courses: [
+//       { id: '1', name: 'English A: language and literature HL', semester1Grade: 5, semester2Grade: '-' },
+//       { id: '2', name: 'French B SL', semester1Grade: 4, semester2Grade: '-' },
+//       { id: '3', name: 'Business management HL', semester1Grade: 6, semester2Grade: '-' },
+//       { id: '4', name: 'Economics HL', semester1Grade: 5, semester2Grade: '-' },
+//       { id: '5', name: 'Biology HL', semester1Grade: 4, semester2Grade: '-' },
+//       { id: '6', name: 'Mathematics: applications and interpretation SL', semester1Grade: 3, semester2Grade: '-' },
+//       { id: '7', name: 'Theory of knowledge', semester1Grade: 'P', semester2Grade: '-' },
+//     ],
+//   },
+//   {
+//     id: 'dp-11-2024',
+//     program: 'DP',
+//     gradeLevel: 'Grade 11',
+//     academicYear: '2024-2025',
+//     courses: [
+//       { id: '1', name: 'English A: language and literature SL', semester1Grade: 3, semester2Grade: 3 },
+//       { id: '2', name: 'French B SL', semester1Grade: 5, semester2Grade: 3 },
+//       { id: '3', name: 'Business management HL', semester1Grade: 7, semester2Grade: 7 },
+//       { id: '4', name: 'Economics HL', semester1Grade: 5, semester2Grade: 4 },
+//       { id: '5', name: 'Biology HL', semester1Grade: 3, semester2Grade: 4 },
+//       { id: '6', name: 'Mathematics: applications and interpretation SL', semester1Grade: 4, semester2Grade: 3 },
+//       { id: '7', name: 'Theory of knowledge', semester1Grade: 'P', semester2Grade: 'P' },
+//     ],
+//   },
+//   {
+//     id: 'myp-5-2023',
+//     program: 'MYP',
+//     gradeLevel: 'Year 5',
+//     academicYear: '2023-2024',
+//     courses: [
+//       { id: '1', name: 'English Language and Literature', semester1Grade: 6, semester2Grade: 6 },
+//       { id: '2', name: 'French Language Acquisition Phase 4/5', semester1Grade: 5, semester2Grade: 5 },
+//       { id: '3', name: 'Integrated Humanities', semester1Grade: 6, semester2Grade: 6 },
+//       { id: '4', name: 'Integrated Sciences', semester1Grade: 4, semester2Grade: 4 },
+//       { id: '5', name: 'Integrated Mathematics', semester1Grade: 5, semester2Grade: 6 },
+//       { id: '6', name: 'Integrated Arts (Theatre)', semester1Grade: 6, semester2Grade: 6 },
+//       { id: '7', name: 'Digital and Product Design', semester1Grade: 6, semester2Grade: 7 },
+//       { id: '8', name: 'Physical & Health Education', semester1Grade: 5, semester2Grade: 6 },
+//     ],
+//   },
+//   {
+//     id: 'myp-4-2022',
+//     program: 'MYP',
+//     gradeLevel: 'Year 4',
+//     academicYear: '2022-2023',
+//     courses: [
+//       { id: '1', name: 'English Language and Literature', semester1Grade: 6, semester2Grade: 6 },
+//       { id: '2', name: 'French Language Acquisition Phase 3', semester1Grade: 6, semester2Grade: 5 },
+//       { id: '3', name: 'Integrated Humanities', semester1Grade: 5, semester2Grade: 6 },
+//       { id: '4', name: 'Integrated Sciences', semester1Grade: 4, semester2Grade: 5 },
+//       { id: '5', name: 'Integrated Mathematics', semester1Grade: 4, semester2Grade: 5 },
+//       { id: '6', name: 'Integrated Arts (Theatre)', semester1Grade: 5, semester2Grade: 5 },
+//       { id: '7', name: 'Digital and Product Design', semester1Grade: 5, semester2Grade: 5 },
+//       { id: '8', name: 'Physical & Health Education', semester1Grade: 5, semester2Grade: 5 },
+//     ],
+//   },
+// ];
+
+// export const gradingScale: GradeDescriptor[] = [
+//   { grade: '7', lcsDescriptor: 'Consistently attained an outstanding level of achievement.', descriptor: 'Excellent' },
+//   { grade: '6', lcsDescriptor: 'Attained an excellent level of achievement.', descriptor: 'Very Good' },
+//   { grade: '5', lcsDescriptor: 'Attained a good level of achievement.', descriptor: 'Good' },
+//   { grade: '4', lcsDescriptor: 'Attained a satisfactory level of achievement.', descriptor: 'Satisfactory' },
+//   { grade: '3', lcsDescriptor: 'Attained the minimum level of achievement.', descriptor: 'Limited' },
+//   { grade: '2', lcsDescriptor: 'Has not attained the minimum standard of achievement.', descriptor: 'Poor' },
+//   { grade: '1', lcsDescriptor: 'Has not met the requirements of the course.', descriptor: 'Very Poor' },
+//   { grade: 'P', lcsDescriptor: 'A passing mark was earned.', descriptor: 'Pass Mark' },
+//   { grade: 'F', lcsDescriptor: 'The student failed to meet the passing requirements for the course.', descriptor: 'Failed' },
+// ];
+
+// export const mockTranscriptData: TranscriptData = {
+//   student: mockStudents[0],
+//   schoolName: 'Lincoln Community School',
+//   schoolAddress: {
+//     line1: 'PMB CT 354, Cantonment',
+//     city: 'Accra',
+//     country: 'Ghana',
+//     phone: '+233 30 221 8100',
+//     web: 'www.lincoln.edu.gh',
+//   },
+//   academicYears: mockAcademicYears,
+//   principalName: 'First and last name',
+//   principalTitle: 'Secondary School Principal',
+// };
