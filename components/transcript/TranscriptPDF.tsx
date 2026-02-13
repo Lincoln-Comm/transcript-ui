@@ -519,61 +519,7 @@ const TranscriptPDF = ({ data, gradingScale }: TranscriptPDFProps) => (
         </View>
       ))}
 
-      {/* Academic Years */}
-      {data.academicYears.map((academicYear) => (
-        <View key={academicYear.id} style={styles.academicYearSection}>
-
-          <View style={styles.sectionHeader}>
-            <View style={styles.sectionHeaderSubject}>
-              <Text style={styles.sectionHeaderText}>
-                {academicYear.program} - All courses are IB subjects, unless indicated as LCS - {academicYear.gradeLevel} - {academicYear.academicYear}
-              </Text>
-            </View>
-
-            <View style={styles.sectionHeaderGrade}>
-              <Text style={styles.sectionHeaderGradeText}>Semester 1</Text>
-            </View>
-
-            <View style={styles.sectionHeaderGradeLast}>
-              <Text style={styles.sectionHeaderGradeText}>Semester 2</Text>
-            </View>
-          </View>
-
-
-          {/* Table */}
-          <View style={styles.table}>
-            {/* Table Header */}
-            <View style={styles.tableHeader}>
-              <View style={[styles.tableHeaderCell, styles.tableHeaderSubject]}>
-                <Text>Subject</Text>
-              </View>
-              <View style={[styles.tableHeaderCell, styles.tableHeaderGrade]}>
-                {/* <Text>Semester 1</Text> */}
-                <Text style={{ fontWeight: 'bold', fontSize: 7 }}>Final Grade</Text>
-              </View>
-              <View style={[styles.tableHeaderCell, styles.tableHeaderGradeLast]}>
-                {/* <Text>Semester 2</Text> */}
-                <Text style={{ fontWeight: 'bold', fontSize: 7 }}>Final Grade</Text>
-              </View>
-            </View>
-
-            {/* Table Rows */}
-            {academicYear.courses.map((course) => (
-              <View key={course.id} style={styles.tableRow}>
-                <View style={[styles.tableCell, styles.tableCellSubject]}>
-                  <Text>{course.description}</Text>
-                </View>
-                <View style={[styles.tableCell, styles.tableCellGrade]}>
-                  <Text>{course.semester1Grade ?? '-'}</Text>
-                </View>
-                <View style={[styles.tableCell, styles.tableCellGradeLast]}>
-                  <Text>{course.semester2Grade ?? '-'}</Text>
-                </View>
-              </View>
-            ))}
-          </View>
-        </View>
-      ))}
+    
 
       {/* Signature */}
       <View style={styles.signatureSection}>

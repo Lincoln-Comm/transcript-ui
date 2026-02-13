@@ -122,7 +122,7 @@ export function useStudents(): UseStudentsResult {
       student.first_name.toLowerCase().includes(lowerQuery) ||
       student.last_name.toLowerCase().includes(lowerQuery) ||
       student.unique_id.toLowerCase().includes(lowerQuery) ||
-      student.apid.toLowerCase().includes(lowerQuery) ||
+    //  student.apid.toLowerCase().includes(lowerQuery) ||
       `${student.first_name} ${student.last_name}`.toLowerCase().includes(lowerQuery)
     );
     

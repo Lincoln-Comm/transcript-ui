@@ -3,7 +3,7 @@
 
 export interface StudentAPI {
   id: string;
-  apid: string;
+ // apid: string;
   unique_id: string;
   first_name: string;
   middle_name: string | null;
@@ -48,7 +48,7 @@ export interface TranscriptAPIResponse {
 
 export interface Student {
   id: string;
-  apid: string;
+  //apid: string;
   uniqueId: string;
   name: string;
   firstName: string;
@@ -114,7 +114,7 @@ export function transformStudent(apiStudent: StudentAPI): Student {
 
   return {
     id: apiStudent.id,
-    apid: apiStudent.apid,
+   // apid: apiStudent.apid,
     uniqueId: apiStudent.unique_id,
     name: `${apiStudent.first_name} ${apiStudent.last_name}`,
     firstName: apiStudent.first_name,
