@@ -448,7 +448,7 @@ const TranscriptPDF = ({ data, gradingScale }: TranscriptPDFProps) => (
           </View>
           <View style={styles.infoRow}>
             <Text style={styles.infoLabel}>Date of graduation :</Text>
-            <Text style={styles.infoValue}>{data.student.dateOfGraduation}</Text>
+            {/* <Text style={styles.infoValue}>{data.student.dateOfGraduation}</Text> */}
           </View>
         </View>
         <View style={styles.studentInfoRight}>

@@ -143,7 +143,7 @@ const TranscriptPreview = ({ data, isLoading = false, error = null }: Transcript
                 </p>
                 <p>
                   <span className="text-gray-600">Date of graduation :</span>{' '}
-                  <span className="font-medium text-gray-900">{data.student.dateOfGraduation}</span>
+                  {/* <span className="font-medium text-gray-900">{data.student.dateOfGraduation}</span> */}
                 </p>
               </div>
               <div className="text-right space-y-1">

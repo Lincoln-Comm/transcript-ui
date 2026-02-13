@@ -19,7 +19,7 @@ export interface StudentAPI {
   status: string;
   entry_date: string;
   entry_grade: string;
-  dateOfGraduation: string | null;
+ // dateOfGraduation: string | null;
 }
 
 export interface CourseGradeAPI {
