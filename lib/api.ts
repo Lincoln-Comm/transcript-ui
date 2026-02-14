@@ -1,4 +1,4 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://transcript-apis-test.up.railway.app/api';
 
 // Generic fetch wrapper with error handling
 async function fetchAPI<T>(endpoint: string, options?: RequestInit): Promise<T> {
