@@ -716,8 +716,6 @@
 //   return fetchAPI<string[]>('/courses/levels');
 // } 
 
-
-
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
 
 import { TranscriptAPIResponse, StudentAPI } from '@/types';

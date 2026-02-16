@@ -609,7 +609,6 @@
 //   descriptors: GradeDescriptor[];
 // } 
 
-
 // =====================================================
 // API Response Types (from backend)
 // =====================================================
@@ -637,6 +636,7 @@ export interface StudentAPI {
 export interface CourseGradeAPI {
   course_name: string;
   course_level: string;
+  course_description?: string | null;
   sem1_grade: number | null;
   sem2_grade: number | null;
 }
@@ -683,6 +683,7 @@ export interface Course {
   id: string;
   name: string;
   level: string;
+  description?: string | null;
   semester1Grade: number | string | null;
   semester2Grade: number | string | null;
 }
@@ -786,6 +787,7 @@ export function transformTranscript(apiResponse: TranscriptAPIResponse): Transcr
           id: `${year}-${index}`,
           name: course.course_name,
           level: course.course_level,
+          description: course.course_description || null,
           semester1Grade: course.sem1_grade,
           semester2Grade: course.sem2_grade,
         })),
@@ -925,9 +927,6 @@ export interface CoursesTableProps {
   academicYear: AcademicYear;
 }
 
-
 export interface GradingScaleProps {
   descriptors: GradeDescriptor[];
 }
-
-

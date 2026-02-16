@@ -63,10 +63,9 @@
 // };
 
 // export default Header; 
-
 'use client';
 
-import { LayoutGrid, Users, FileText, Settings } from 'lucide-react';
+import { LayoutGrid, Users, FileText, Settings, BookOpen } from 'lucide-react';
 import { IBLogo } from '@/components/ui';
 import NavItem from './NavItem';
 import UserProfile from './UserProfile';
@@ -76,6 +75,7 @@ const Header = ({ activeNav = 'generate-transcript' }: HeaderProps) => {
   const navItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutGrid, href: '/dashboard' },
     { id: 'students', label: 'Students', icon: Users, href: '/dashboard/students' },
+    { id: 'courses', label: 'Courses', icon: BookOpen, href: '/dashboard/courses' },
     { id: 'generate-transcript', label: 'Generate Transcript', icon: FileText, href: '/dashboard/generate-transcript' },
     { id: 'settings', label: 'Settings', icon: Settings, href: '/dashboard/settings' },
   ];
