@@ -1,10 +1,4 @@
 
-// import { redirect } from 'next/navigation';
-
-// export default function Home() {
-//   redirect('/dashboard/generate-transcript');
-// } 
-
 'use client';
 
 import { useEffect } from 'react';
