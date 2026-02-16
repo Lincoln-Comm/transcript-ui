@@ -925,6 +925,9 @@ export interface CoursesTableProps {
   academicYear: AcademicYear;
 }
 
+
 export interface GradingScaleProps {
   descriptors: GradeDescriptor[];
 }
+
+
