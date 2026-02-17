@@ -60,7 +60,7 @@ const UserProfile = () => {
           </div>
 
           {/* Menu Items */}
-          <div className="py-1">
+          {/* <div className="py-1">
             <button
               onClick={() => setIsOpen(false)}
               className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
@@ -75,7 +75,7 @@ const UserProfile = () => {
               <Settings className="w-4 h-4 text-gray-400" />
               Settings
             </button>
-          </div>
+          </div> */}
 
           {/* Logout */}
           <div className="border-t border-gray-100 pt-1">

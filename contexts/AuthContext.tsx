@@ -50,7 +50,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       console.log('🔑 Attempting login...');
       const response = await loginAPI(credentials);
       
-      console.log('Login successful:', response);
+      console.log('✅ Login successful:', response);
       
       // Store token and user
       setAuthToken(response.token);
@@ -58,10 +58,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setUser(response.user);
       
       // Redirect to dashboard
-      router.push('/dashboard/generate-transcript');
+      router.push('/dashboard');
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Login failed';
-      console.error('Login failed:', message);
+      console.error('❌ Login failed:', message);
       setError(message);
       throw err;
     } finally {

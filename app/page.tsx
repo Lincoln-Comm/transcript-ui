@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useEffect } from 'react';
@@ -11,7 +10,7 @@ export default function Home() {
   useEffect(() => {
     // Check if user is authenticated
     if (isAuthenticated()) {
-      router.push('/dashboard/generate-transcript');
+      router.push('/dashboard');
     } else {
       router.push('/login');
     }

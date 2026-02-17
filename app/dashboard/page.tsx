@@ -333,6 +333,9 @@ function DashboardContent() {
     ? `${stats.yearGroupRange.start} to ${stats.yearGroupRange.end}`
     : 'All years';
 
+    // Temporary toggle for gender
+    const showChart = false
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-100 via-gray-100 to-slate-200">
       <Header activeNav="dashboard" />
@@ -426,7 +429,7 @@ function DashboardContent() {
 
             {/* Students by Program */}
             <ChartCard title="Students by Program" isLoading={isLoadingCharts}>
-              {programChartData.length > 0 ? (
+              {showChart && programChartData.length > 0 ? (
                 <DonutChart data={programChartData} />
               ) : (
                 <div className="flex items-center justify-center h-64 text-gray-400">
@@ -437,7 +440,7 @@ function DashboardContent() {
 
             {/* Students by Gender */}
             <ChartCard title="Students by Gender" isLoading={isLoadingCharts}>
-              {genderChartData.length > 0 ? (
+              {showChart && genderChartData.length > 0 ? (
                 <DonutChart data={genderChartData} />
               ) : (
                 <div className="flex items-center justify-center h-64 text-gray-400">
@@ -451,7 +454,7 @@ function DashboardContent() {
           <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
             <div className="flex items-center gap-2 mb-4">
               <TrendingUp className="w-5 h-5 text-blue-600" />
-              <h3 className="text-lg font-semibold text-gray-900">Archive Summary</h3>
+              <h3 className="text-lg font-semibold text-gray-900">Data Summary</h3>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               <div>
