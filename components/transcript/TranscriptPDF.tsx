@@ -11,6 +11,7 @@ import {
 // Register Poppins font from Google Fonts CDN
 
 import { TranscriptData, GradeDescriptor } from '@/types';
+import { sign } from 'crypto';
 
 
 Font.register({
@@ -68,12 +69,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
   },
   // Header
-  header: {
+  header: { 
     flexDirection: 'row',
     justifyContent: 'space-between', 
     alignItems: 'flex-start', 
     marginBottom: 3,
-    marginTop: 3,
+    marginTop: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#e5e7eb', 
     paddingBottom: 3
@@ -289,7 +290,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#9ca3af',
     marginBottom: 2,
-    height: 10,
   },
   signatureName: {
     fontSize: 7,
@@ -299,6 +299,13 @@ const styles = StyleSheet.create({
   signatureTitle: {
     fontSize: 7,
     color: '#6b7280',
+  },
+
+  signatureImage: {
+    width: 50,
+    objectFit: 'contain',
+    paddingBottom: 0,
+      marginBottom: 0,
   },
   // Grading Scale
   bottomSection: {
@@ -523,6 +530,10 @@ const TranscriptPDF = ({ data, gradingScale }: TranscriptPDFProps) => (
 
       {/* Signature */}
       <View style={styles.signatureSection}>
+        <Image 
+          src="/images/principal_signature.png" 
+          style={styles.signatureImage} 
+        />
         <View style={styles.signatureLine} />
         <Text style={styles.signatureName}>{data.principalName}</Text>
         <Text style={styles.signatureTitle}>{data.principalTitle}</Text>

@@ -334,7 +334,8 @@ function DashboardContent() {
     : 'All years';
 
     // Temporary toggle for gender
-    const showChart = false
+    const showGenderChart = true
+    const showStudentsByProgramChart = false
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-100 via-gray-100 to-slate-200">
@@ -418,7 +419,7 @@ function DashboardContent() {
           {/* Charts Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
             {/* Students by Year */}
-            <ChartCard title="Students by Year Group (Top 10)" isLoading={isLoadingCharts}>
+            <ChartCard title="Students by Year Group (Top 10) Based on Data Uploaded" isLoading={isLoadingCharts}>
               <BarChart data={yearChartData} color="bg-blue-500" />
             </ChartCard>
 
@@ -429,7 +430,7 @@ function DashboardContent() {
 
             {/* Students by Program */}
             <ChartCard title="Students by Program" isLoading={isLoadingCharts}>
-              {showChart && programChartData.length > 0 ? (
+              {showStudentsByProgramChart && programChartData.length > 0 ? (
                 <DonutChart data={programChartData} />
               ) : (
                 <div className="flex items-center justify-center h-64 text-gray-400">
@@ -440,7 +441,7 @@ function DashboardContent() {
 
             {/* Students by Gender */}
             <ChartCard title="Students by Gender" isLoading={isLoadingCharts}>
-              {showChart && genderChartData.length > 0 ? (
+              {showGenderChart && genderChartData.length > 0 ? (
                 <DonutChart data={genderChartData} />
               ) : (
                 <div className="flex items-center justify-center h-64 text-gray-400">

@@ -195,7 +195,7 @@ export function transformTranscript(apiResponse: TranscriptAPIResponse): Transcr
       web: 'www.lincoln.edu.gh',
     },
     academicYears,
-    principalName: 'First and last name',
+    principalName: 'Jennifer Hager',
     principalTitle: 'Secondary School Principal',
   };
 }
