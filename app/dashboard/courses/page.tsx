@@ -28,10 +28,8 @@ import {
   PaginatedCoursesResponse,
 } from '@/lib/api';
 
-// =====================================================
-// Types
-// =====================================================
 
+// Types
 interface CourseFormData {
   course_name: string;
   course_description: string;
@@ -50,9 +48,7 @@ const emptyFormData: CourseFormData = {
   num_credits: '',
 };
 
-// =====================================================
 // Action Menu Component
-// =====================================================
 
 function ActionMenu({ 
   onView, 
@@ -109,10 +105,8 @@ function ActionMenu({
   );
 }
 
-// =====================================================
-// View Course Modal
-// =====================================================
 
+// View Course Modal
 function ViewCourseModal({ 
   course, 
   onClose 
@@ -176,9 +170,7 @@ function ViewCourseModal({
   );
 }
 
-// =====================================================
 // Add/Edit Course Modal
-// =====================================================
 
 function CourseFormModal({ 
   course, 
@@ -341,9 +333,8 @@ function CourseFormModal({
   );
 }
 
-// =====================================================
+
 // Delete Confirmation Modal
-// =====================================================
 
 function DeleteConfirmModal({
   courseName,
@@ -403,9 +394,8 @@ function DeleteConfirmModal({
   );
 }
 
-// =====================================================
+
 // Level Badge Component
-// =====================================================
 
 function LevelBadge({ level }: { level: string }) {
   const colors: Record<string, string> = {
@@ -425,9 +415,9 @@ function LevelBadge({ level }: { level: string }) {
   );
 }
 
-// =====================================================
+
 // Main Courses Page Content
-// =====================================================
+
 
 function CoursesContent() {
   // State
@@ -473,7 +463,7 @@ function CoursesContent() {
       setTotalPages(response.totalPages);
       setTotalItems(response.totalItems);
     } catch (err) {
-      console.error('❌ Error fetching courses:', err);
+      console.error('Error fetching courses:', err);
       setError(err instanceof Error ? err.message : 'Failed to fetch courses');
     } finally {
       setIsLoading(false);
@@ -556,7 +546,7 @@ function CoursesContent() {
       setShowAddModal(false);
       fetchCourses();
     } catch (err) {
-      console.error('❌ Error saving course:', err);
+      console.error('Error saving course:', err);
       alert(err instanceof Error ? err.message : 'Failed to save course');
     } finally {
       setIsSaving(false);
@@ -571,11 +561,11 @@ function CoursesContent() {
     
     try {
       await deleteCourse(deleteCourseData.id);
-      console.log('✅ Course deleted');
+      console.log('Course deleted');
       setDeleteCourseData(null);
       fetchCourses();
     } catch (err) {
-      console.error('❌ Error deleting course:', err);
+      console.error('Error deleting course:', err);
       alert(err instanceof Error ? err.message : 'Failed to delete course');
     } finally {
       setIsDeleting(false);
@@ -806,9 +796,8 @@ function CoursesContent() {
   );
 }
 
-// =====================================================
-// Export with Protected Route
-// =====================================================
+
+// Export with Protected Route\
 
 export default function CoursesPage() {
   return (
