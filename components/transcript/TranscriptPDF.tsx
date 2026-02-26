@@ -1123,10 +1123,8 @@ const TranscriptPDF = ({ data, gradingScale }: TranscriptPDFProps) => (
           </View>
         </View>
       ))}
-
-      {/* Fixed Bottom Section */}
-      <View style={styles.fixedBottom}>
-        {/* Signature */}
+      {/* Signature */}
+       {/* Signature */}
         <View style={styles.signatureSection}>
           <Image 
             src="/images/principal_signature.png" 
@@ -1136,6 +1134,8 @@ const TranscriptPDF = ({ data, gradingScale }: TranscriptPDFProps) => (
           <Text style={styles.signatureName}>{data.principalName}</Text>
           <Text style={styles.signatureTitle}>{data.principalTitle}</Text>
         </View>
+      {/* Fixed Bottom Section */}
+      <View style={styles.fixedBottom}>
 
         {/* Bottom Section: Grading Scale + Notes */}
         <View style={styles.bottomSection}>
