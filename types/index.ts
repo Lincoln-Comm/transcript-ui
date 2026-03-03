@@ -120,7 +120,7 @@ export function transformStudent(apiStudent: StudentAPI): Student {
     id: apiStudent.id,
     apid: apiStudent.apid || undefined,
     uniqueId: apiStudent.unique_id,
-    name: `${apiStudent.first_name} ${apiStudent.last_name}`,
+    name: `${apiStudent.first_name} ${apiStudent.middle_name} ${apiStudent.last_name}`,
     firstName: apiStudent.first_name,
     middleName: apiStudent.middle_name,
     lastName: apiStudent.last_name,
