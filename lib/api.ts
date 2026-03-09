@@ -1,6 +1,4 @@
 
-// const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
-
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
 
 import { TranscriptAPIResponse, StudentAPI } from '@/types';
@@ -72,10 +70,8 @@ export async function getTranscript(studentId: string): Promise<TranscriptAPIRes
   return fetchAPI<TranscriptAPIResponse>(`/transcript/${studentId}`);
 }
 
-// =====================================================
-// Paginated Students API
-// =====================================================
 
+// Paginated Students API
 export interface PaginatedStudentsResponse {
   totalItems: number;
   totalPages: number;
@@ -152,10 +148,8 @@ export async function getYearGroups(): Promise<string[]> {
   return fetchAPI<string[]>('/students/year-groups');
 }
 
-// =====================================================
-// Courses API
-// =====================================================
 
+// Courses API
 export interface CourseAPIResponse {
   id: string;
   course_name: string;
@@ -238,9 +232,7 @@ export async function getCourseLevels(): Promise<string[]> {
   return fetchAPI<string[]>('/courses/levels');
 }
 
-// =====================================================
 // Dashboard API
-// =====================================================
 
 export interface DashboardStats {
   totalStudents: number;
@@ -324,4 +316,70 @@ export async function getStudentsByStatus(): Promise<StatusCount[]> {
  */
 export async function getTopYearGroups(limit: number = 10): Promise<YearGroupCount[]> {
   return fetchAPI<YearGroupCount[]>(`/dashboard/top-year-groups?limit=${limit}`);
+}
+
+// Grades API
+
+export interface GradeAPI {
+  id: string;
+  student_id: string;
+  course_id: string;
+  calendar_year: number;
+  semester: string;
+  grade: string;
+  course?: {
+    id: string;
+    course_name: string;
+    course_description: string | null;
+    course_level: string;
+  };
+}
+
+export interface StudentGradesResponse {
+  student: StudentAPIResponse;
+  grades: GradeAPI[];
+}
+
+/**
+ * Fetch grades for a specific student
+ */
+export async function getStudentGrades(studentId: string): Promise<StudentGradesResponse> {
+  return fetchAPI<StudentGradesResponse>(`/grades/student/${studentId}`);
+}
+
+/**
+ * Add a new grade
+ */
+export async function createGrade(grade: {
+  student_id: string;
+  course_id: string;
+  calendar_year: number;
+  semester: string;
+  grade: string;
+}): Promise<GradeAPI> {
+  return fetchAPI<GradeAPI>('/grades', {
+    method: 'POST',
+    body: JSON.stringify(grade),
+  });
+}
+
+/**
+ * Update a grade
+ */
+export async function updateGrade(gradeId: string, grade: {
+  grade: string;
+}): Promise<GradeAPI> {
+  return fetchAPI<GradeAPI>(`/grades/${gradeId}`, {
+    method: 'PUT',
+    body: JSON.stringify(grade),
+  });
+}
+
+/**
+ * Delete a grade
+ */
+export async function deleteGrade(gradeId: string): Promise<{ message: string }> {
+  return fetchAPI<{ message: string }>(`/grades/${gradeId}`, {
+    method: 'DELETE',
+  });
 }
