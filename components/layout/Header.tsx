@@ -75,8 +75,8 @@ const Header = ({ activeNav = 'generate-transcript' }: HeaderProps) => {
           <div className="flex items-center gap-3">
             <IBLogo />
             <div className="text-white">
-              <div className="text-xs font-semibold tracking-wider uppercase opacity-90">International</div>
-              <div className="text-xs font-semibold tracking-wider uppercase opacity-90">Baccalaureate</div>
+              <div className="text-xs font-semibold tracking-wider uppercase opacity-90">Lincoln</div>
+              <div className="text-xs font-semibold tracking-wider uppercase opacity-90">Community Sch</div>
             </div>
           </div>
           
