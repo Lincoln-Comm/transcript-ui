@@ -47,13 +47,13 @@ const Header = ({ activeNav = 'generate-transcript' }: HeaderProps) => {
       href: '/dashboard/users',
       show: isAdmin
     },
-    { 
-      id: 'settings', 
-      label: 'Settings', 
-      icon: Settings, 
-      href: '/dashboard/settings',
-      show: isAdmin
-    },
+    // { 
+    //   id: 'settings', 
+    //   label: 'Settings', 
+    //   icon: Settings, 
+    //   href: '/dashboard/settings',
+    //   show: isAdmin
+    // },
   ].filter(item => item.show);
 
   return (

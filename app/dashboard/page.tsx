@@ -26,10 +26,8 @@ import {
   CourseLevelCount,
 } from '@/lib/api';
 
-// =====================================================
-// Stat Card Component
-// =====================================================
 
+// Stat Card Component
 interface StatCardProps {
   title: string;
   value: string | number;
@@ -80,10 +78,8 @@ function StatCard({ title, value, subtitle, icon, color, isLoading }: StatCardPr
   );
 }
 
-// =====================================================
-// Chart Card Component (wrapper)
-// =====================================================
 
+// Chart Card Component (wrapper)
 interface ChartCardProps {
   title: string;
   children: React.ReactNode;
@@ -105,10 +101,8 @@ function ChartCard({ title, children, isLoading }: ChartCardProps) {
   );
 }
 
-// =====================================================
-// Bar Chart Component
-// =====================================================
 
+// Bar Chart Component
 interface BarChartProps {
   data: { label: string; value: number }[];
   maxItems?: number;
@@ -141,10 +135,8 @@ function BarChart({ data, maxItems = 10, color = 'bg-blue-500' }: BarChartProps)
   );
 }
 
-// =====================================================
-// Pie/Donut Chart Component
-// =====================================================
 
+// Pie/Donut Chart Component
 interface PieChartProps {
   data: { label: string; value: number; color: string }[];
 }
@@ -223,9 +215,8 @@ function DonutChart({ data }: PieChartProps) {
   );
 }
 
-// =====================================================
+
 // Quick Action Card Component
-// =====================================================
 
 interface QuickActionProps {
   title: string;
@@ -252,10 +243,8 @@ function QuickAction({ title, description, href, icon }: QuickActionProps) {
   );
 }
 
-// =====================================================
-// Main Dashboard Content
-// =====================================================
 
+// Main Dashboard Content
 function DashboardContent() {
   // State
   const [stats, setStats] = useState<DashboardStats | null>(null);
@@ -294,7 +283,7 @@ function DashboardContent() {
       
       console.log('📈 Chart data loaded');
     } catch (error) {
-      console.error('❌ Error fetching dashboard data:', error);
+      console.error('Error fetching dashboard data:', error);
     } finally {
       setIsLoadingStats(false);
       setIsLoadingCharts(false);
@@ -487,10 +476,8 @@ function DashboardContent() {
   );
 }
 
-// =====================================================
-// Export with Protected Route
-// =====================================================
 
+// Export with Protected Route
 export default function DashboardPage() {
   return (
     <ProtectedRoute>
