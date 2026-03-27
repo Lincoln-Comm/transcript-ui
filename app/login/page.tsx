@@ -7,7 +7,7 @@ import { Eye, EyeOff, Lock, Mail, Loader2, AlertCircle } from 'lucide-react';
 import { useAuth } from '@/contexts';
 
 export default function LoginPage() {
-  const [email, setEmail] = useState(''); 
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -50,7 +50,7 @@ export default function LoginPage() {
           <div className="mb-8">
             <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-2xl">
               <Image 
-                src="/images/school-logo.png" 
+                src="/images/school_logo.png" 
                 alt="School Logo"
                 width={80}
                 height={80}
@@ -109,7 +109,7 @@ export default function LoginPage() {
           <div className="lg:hidden flex justify-center mb-8">
             <div className="w-16 h-16 bg-blue-900 rounded-full flex items-center justify-center shadow-lg">
               <Image 
-                src="/images/school-logo.png" 
+                src="/images/school_logo.png" 
                 alt="School Logo"
                 width={50}
                 height={50}
@@ -192,7 +192,7 @@ export default function LoginPage() {
             </div>
 
             {/* Remember Me & Forgot Password */}
-            {/* <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between">
               <label className="flex items-center">
                 <input
                   type="checkbox"
@@ -203,7 +203,7 @@ export default function LoginPage() {
               <a href="#" className="text-sm text-blue-600 hover:text-blue-700 font-medium">
                 Forgot password?
               </a>
-            </div> */}
+            </div>
 
             {/* Submit Button */}
             <button
@@ -245,3 +245,4 @@ export default function LoginPage() {
     </div>
   );
 }
+
