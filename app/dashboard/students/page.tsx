@@ -616,6 +616,15 @@ function StudentGradesModal({
   } | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
 
+  // Quick add grade state (for clicking on empty semester cells)
+  const [quickAddGrade, setQuickAddGrade] = useState<{
+    courseId: string;
+    calendarYear: number;
+    semester: 'SEM1' | 'SEM2';
+    value: string;
+  } | null>(null);
+  const [isQuickAdding, setIsQuickAdding] = useState(false);
+
   const filteredCourses = courses.filter(course => {
     const search = courseSearch.toLowerCase();
     const nameMatch = course.course_name 
@@ -945,6 +954,32 @@ function StudentGradesModal({
     }
   };
 
+  // Handle quick add grade (when clicking on empty semester cell)
+  const handleQuickAddGrade = async () => {
+    if (!quickAddGrade || !quickAddGrade.value.trim()) {
+      setQuickAddGrade(null);
+      return;
+    }
+
+    setIsQuickAdding(true);
+    try {
+      await createGrade({
+        student_id: student.id,
+        course_id: quickAddGrade.courseId,
+        calendar_year: quickAddGrade.calendarYear,
+        semester: quickAddGrade.semester,
+        grade: quickAddGrade.value.trim(),
+      });
+      setQuickAddGrade(null);
+      fetchGrades();
+    } catch (err) {
+      console.error('Error adding grade:', err);
+      alert('Failed to add grade');
+    } finally {
+      setIsQuickAdding(false);
+    }
+  };
+
   const gradesByYear = grades.reduce((acc, grade) => {
     const yearKey = grade.calendar_year.toString();
     if (!acc[yearKey]) {
@@ -1100,6 +1135,39 @@ function StudentGradesModal({
                                       className="w-14 px-2 py-1 text-center border border-gray-300 rounded-lg text-sm"
                                       placeholder="-"
                                     />
+                                  ) : canEdit && !grade.sem1_grade_id ? (
+                                    // Quick add mode for empty SEM1
+                                    quickAddGrade?.courseId === grade.course_id && 
+                                    quickAddGrade?.calendarYear === grade.calendar_year && 
+                                    quickAddGrade?.semester === 'SEM1' ? (
+                                      <input
+                                        type="text"
+                                        autoFocus
+                                        value={quickAddGrade.value}
+                                        onChange={(e) => setQuickAddGrade({ ...quickAddGrade, value: e.target.value })}
+                                        onBlur={handleQuickAddGrade}
+                                        onKeyDown={(e) => {
+                                          if (e.key === 'Enter') handleQuickAddGrade();
+                                          if (e.key === 'Escape') setQuickAddGrade(null);
+                                        }}
+                                        disabled={isQuickAdding}
+                                        className="w-14 px-2 py-1 text-center border border-blue-400 rounded-lg text-sm focus:ring-2 focus:ring-blue-500"
+                                        placeholder="..."
+                                      />
+                                    ) : (
+                                      <button
+                                        onClick={() => setQuickAddGrade({
+                                          courseId: grade.course_id,
+                                          calendarYear: grade.calendar_year,
+                                          semester: 'SEM1',
+                                          value: ''
+                                        })}
+                                        className="w-14 px-2 py-1 text-center text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg text-sm transition-colors"
+                                        title="Click to add grade"
+                                      >
+                                        -
+                                      </button>
+                                    )
                                   ) : (
                                     <span className="text-sm text-gray-900">{grade.sem1_grade ?? '-'}</span>
                                   )}
@@ -1114,6 +1182,39 @@ function StudentGradesModal({
                                       className="w-14 px-2 py-1 text-center border border-gray-300 rounded-lg text-sm"
                                       placeholder="-"
                                     />
+                                  ) : canEdit && !grade.sem2_grade_id ? (
+                                    // Quick add mode for empty SEM2
+                                    quickAddGrade?.courseId === grade.course_id && 
+                                    quickAddGrade?.calendarYear === grade.calendar_year && 
+                                    quickAddGrade?.semester === 'SEM2' ? (
+                                      <input
+                                        type="text"
+                                        autoFocus
+                                        value={quickAddGrade.value}
+                                        onChange={(e) => setQuickAddGrade({ ...quickAddGrade, value: e.target.value })}
+                                        onBlur={handleQuickAddGrade}
+                                        onKeyDown={(e) => {
+                                          if (e.key === 'Enter') handleQuickAddGrade();
+                                          if (e.key === 'Escape') setQuickAddGrade(null);
+                                        }}
+                                        disabled={isQuickAdding}
+                                        className="w-14 px-2 py-1 text-center border border-blue-400 rounded-lg text-sm focus:ring-2 focus:ring-blue-500"
+                                        placeholder="..."
+                                      />
+                                    ) : (
+                                      <button
+                                        onClick={() => setQuickAddGrade({
+                                          courseId: grade.course_id,
+                                          calendarYear: grade.calendar_year,
+                                          semester: 'SEM2',
+                                          value: ''
+                                        })}
+                                        className="w-14 px-2 py-1 text-center text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg text-sm transition-colors"
+                                        title="Click to add grade"
+                                      >
+                                        -
+                                      </button>
+                                    )
                                   ) : (
                                     <span className="text-sm text-gray-900">{grade.sem2_grade ?? '-'}</span>
                                   )}
