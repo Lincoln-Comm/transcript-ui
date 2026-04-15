@@ -61,28 +61,25 @@ const styles = StyleSheet.create({
   page: {
     padding: 5,
     paddingHorizontal: 20,
-    paddingBottom: 180, // Reserve space for fixed bottom section
+    paddingBottom: 15,
     fontSize: 8,
     fontFamily: 'Poppins',
     backgroundColor: '#ffffff',
   },
-  // Fixed bottom section
+  // Bottom section (no longer fixed - flows naturally)
   fixedBottom: {
-    position: 'absolute',
-    bottom: 8,
-    left: 20,
-    right: 20,
+    marginTop: 'auto', // Push to bottom if there's space
   },
   // Header
   header: { 
     flexDirection: 'row',
     justifyContent: 'space-between', 
     alignItems: 'flex-start', 
-    marginBottom: 3,
-    marginTop: 10,
+    marginBottom: 2, // Reduced from 3
+    marginTop: 8, // Reduced from 10
     borderBottomWidth: 1,
     borderBottomColor: '#e5e7eb', 
-    paddingBottom: 3
+    paddingBottom: 2 // Reduced from 3
   },
   schoolLogo: {
     flexDirection: 'row',
@@ -143,9 +140,9 @@ const styles = StyleSheet.create({
   studentInfo: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 3,
+    marginBottom: 2, // Reduced from 3
     paddingVertical: 0,
-    marginTop: 3,
+    marginTop: 2, // Reduced from 3
   },
   studentInfoLeft: {
     gap: 0,
@@ -167,7 +164,7 @@ const styles = StyleSheet.create({
   },
   // Academic Year Section
   academicYearSection: {
-    marginBottom: 3,
+    marginBottom: 2, // Reduced from 3
   },
   sectionHeader: {
     flexDirection: 'row',
@@ -275,8 +272,8 @@ const styles = StyleSheet.create({
   },
   // Signature
   signatureSection: {
-    marginTop: 5,
-    marginBottom: 5,
+    marginTop: 2,
+    marginBottom: 0,
   },
   signatureLine: {
     width: 100,
@@ -302,19 +299,22 @@ const styles = StyleSheet.create({
   // Grading Scale
   bottomSection: {
     flexDirection: 'row',
-    marginTop: 5,
+    marginTop: 0,
     justifyContent: 'space-between', 
-    paddingHorizontal: 40,
+    paddingHorizontal: 30, 
   },
   gradingScale: {
     flex: 6,
-    borderWidth: 0.5,
+    borderTopWidth: 0.5,
+    borderLeftWidth: 0.5,
+    borderRightWidth: 0.5,
+    borderBottomWidth: 0.5,
     borderColor: '#242528',
   },
   gradingScaleHeader: {
     flexDirection: 'row',
     borderBottomWidth: 0.5,
-    borderColor: '#242528',
+    borderBottomColor: '#242528',
   },
   gradingScaleHeaderCell: {
     padding: 1,
@@ -327,9 +327,11 @@ const styles = StyleSheet.create({
   },
   gradingScaleRow: {
     flexDirection: 'row',
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#242528',
   },
   gradingScaleCell: {
-    padding: 1,
+    padding: 0.5,
     fontSize: 5,
     color: '#1a1e25ff',
     textAlign: 'center',
@@ -340,12 +342,12 @@ const styles = StyleSheet.create({
     width: '10%',
     textAlign: 'center',
     borderRightWidth: 0.5,
-    borderColor: '#242528',
+    borderRightColor: '#242528',
   },
   descCol: {
     width: '70%',
     borderRightWidth: 0.5,
-    borderColor: '#242528',
+    borderRightColor: '#242528',
   },
   shortDescCol: {
     width: '20%',
@@ -354,39 +356,39 @@ const styles = StyleSheet.create({
   notesSection: {
     flex: 4,
     borderWidth: 0.5,
-    padding: 4,               
-    marginLeft: 6, 
-    lineHeight: 1.3,
+    padding: 3,               
+    marginLeft: 5, 
+    lineHeight: 1.2,
   },
   noteText: {
-    fontSize: 6,
+    fontSize: 5.5,
     color: '#07080aff',
-    marginBottom: 3,
-    lineHeight: 1.3,
+    marginBottom: 2,
+    lineHeight: 1.2,
     justifyContent: 'center',
     textIndent: -4, 
     paddingLeft: 8,
   },
   // Footer
   footer: {
-    marginTop: 3,
+    marginTop: 2,
     alignItems: 'center',
   },
   footerText: {
-    fontSize: 5.5,
+    fontSize: 5,
     color: '#07080aff',
     fontStyle: 'italic',
     textAlign: 'center',
-    lineHeight: 1.5, 
+    lineHeight: 1.3, 
   },
   accreditationLogos: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: 5,
+    marginTop: 2,
   },
   accreditationImage: {
-    width: 350,
-    height: 50,
+    width: 320,
+    height: 30,
     objectFit: 'contain',
   },
   accreditationLogo: {
@@ -537,19 +539,25 @@ const TranscriptPDF = ({ data, gradingScale }: TranscriptPDFProps) => (
                 <Text>Descriptor</Text>
               </View>
             </View>
-            {gradingScale.map((item) => (
-              <View key={item.grade} style={styles.gradingScaleRow}>
-                <View style={[styles.gradingScaleCell, styles.gradeCol]}>
-                  <Text>{item.grade}</Text>
+            {gradingScale.map((item, index) => {
+              const isLastRow = index === gradingScale.length - 1;
+              return (
+                <View key={item.grade} style={[
+                  styles.gradingScaleRow,
+                  isLastRow ? { borderBottomWidth: 0 } : {}
+                ]}>
+                  <View style={[styles.gradingScaleCell, styles.gradeCol]}>
+                    <Text>{item.grade}</Text>
+                  </View>
+                  <View style={[styles.gradingScaleCell, styles.descCol]}>
+                    <Text>{item.lcsDescriptor}</Text>
+                  </View>
+                  <View style={[styles.gradingScaleCell, styles.shortDescCol]}>
+                    <Text>{item.descriptor}</Text>
+                  </View>
                 </View>
-                <View style={[styles.gradingScaleCell, styles.descCol]}>
-                  <Text>{item.lcsDescriptor}</Text>
-                </View>
-                <View style={[styles.gradingScaleCell, styles.shortDescCol]}>
-                  <Text>{item.descriptor}</Text>
-                </View>
-              </View>
-            ))}
+              );
+            })}
           </View>
 
           {/* Notes */}
