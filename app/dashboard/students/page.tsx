@@ -617,6 +617,11 @@ function StudentGradesModal({
   } | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
 
+  // Multi-select for bulk delete
+  const [selectedGrades, setSelectedGrades] = useState<Set<string>>(new Set());
+  const [showBulkDeleteConfirm, setShowBulkDeleteConfirm] = useState(false);
+  const [isBulkDeleting, setIsBulkDeleting] = useState(false);
+
   // Quick add grade state (for clicking on empty semester cells)
   const [quickAddGrade, setQuickAddGrade] = useState<{
     courseId: string;
@@ -956,6 +961,58 @@ function StudentGradesModal({
     }
   };
 
+  // Toggle selection for a grade entry
+  const toggleGradeSelection = (gradeId: string) => {
+    setSelectedGrades(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(gradeId)) {
+        newSet.delete(gradeId);
+      } else {
+        newSet.add(gradeId);
+      }
+      return newSet;
+    });
+  };
+
+  // Select/deselect all grades
+  const toggleSelectAll = () => {
+    if (selectedGrades.size === grades.length) {
+      setSelectedGrades(new Set());
+    } else {
+      setSelectedGrades(new Set(grades.map(g => g.id)));
+    }
+  };
+
+  // Handle bulk delete
+  const handleBulkDelete = async () => {
+    if (selectedGrades.size === 0) return;
+    
+    setIsBulkDeleting(true);
+    try {
+      // Collect all grade IDs to delete (both semesters for each selected entry)
+      const gradeIdsToDelete: string[] = [];
+      
+      grades.forEach(grade => {
+        if (selectedGrades.has(grade.id)) {
+          if (grade.sem1_grade_id) gradeIdsToDelete.push(grade.sem1_grade_id);
+          if (grade.sem2_grade_id) gradeIdsToDelete.push(grade.sem2_grade_id);
+        }
+      });
+
+      // Delete all grades in parallel
+      await Promise.all(gradeIdsToDelete.map(id => deleteGrade(id)));
+      
+      setSelectedGrades(new Set());
+      setShowBulkDeleteConfirm(false);
+      fetchGrades();
+    } catch (err) {
+      console.error('Error bulk deleting grades:', err);
+      alert('Failed to delete some grades');
+    } finally {
+      setIsBulkDeleting(false);
+    }
+  };
+
   // Handle quick add grade (when clicking on empty semester cell)
   const handleQuickAddGrade = async () => {
     if (!quickAddGrade || !quickAddGrade.value.trim()) {
@@ -1056,6 +1113,22 @@ function StudentGradesModal({
             </div>
           ) : (
             <div className="space-y-6">
+              {/* Bulk Delete Button - shows when grades are selected */}
+              {selectedGrades.size > 0 && canDelete && (
+                <div className="flex items-center justify-between bg-red-50 border border-red-200 rounded-xl px-4 py-3">
+                  <span className="text-sm text-red-700">
+                    {selectedGrades.size} grade{selectedGrades.size > 1 ? 's' : ''} selected
+                  </span>
+                  <button
+                    onClick={() => setShowBulkDeleteConfirm(true)}
+                    className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-lg hover:bg-red-700 transition-colors"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                    Delete Selected
+                  </button>
+                </div>
+              )}
+
               {Object.entries(gradesByYear)
                 .sort(([a], [b]) => b.localeCompare(a))
                 .map(([year, yearGrades]) => (
@@ -1067,6 +1140,17 @@ function StudentGradesModal({
                     <table className="w-full">
                       <thead className="bg-gray-50">
                         <tr>
+                          {canDelete && (
+                            <th className="text-center px-2 py-2 w-10">
+                              <input
+                                type="checkbox"
+                                checked={selectedGrades.size === grades.length && grades.length > 0}
+                                onChange={toggleSelectAll}
+                                className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 cursor-pointer"
+                                title="Select all"
+                              />
+                            </th>
+                          )}
                           <th className="text-left px-4 py-2 text-xs font-semibold text-gray-500 uppercase">Course</th>
                           <th className="text-left px-4 py-2 text-xs font-semibold text-gray-500 uppercase">Description</th>
                           <th className="text-center px-4 py-2 text-xs font-semibold text-gray-500 uppercase w-20">Sem 1</th>
@@ -1076,7 +1160,17 @@ function StudentGradesModal({
                       </thead>
                       <tbody className="divide-y divide-gray-100">
                         {yearGrades.map((grade) => (
-                          <tr key={grade.id} className="hover:bg-gray-50">
+                          <tr key={grade.id} className={`hover:bg-gray-50 ${selectedGrades.has(grade.id) ? 'bg-blue-50' : ''}`}>
+                            {canDelete && (
+                              <td className="text-center px-2 py-2">
+                                <input
+                                  type="checkbox"
+                                  checked={selectedGrades.has(grade.id)}
+                                  onChange={() => toggleGradeSelection(grade.id)}
+                                  className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 cursor-pointer"
+                                />
+                              </td>
+                            )}
                             {editingCourse === grade.course_id ? (
                               <>
                                 <td className="px-4 py-2">
@@ -1662,6 +1756,55 @@ function StudentGradesModal({
                   </button>
                 </div>
               )}
+            </div>
+          </div>
+        )}
+
+        {/* Bulk Delete Confirmation Modal */}
+        {showBulkDeleteConfirm && (
+          <div className="absolute inset-0 bg-black/30 flex items-center justify-center p-4 z-50">
+            <div className="bg-white rounded-xl shadow-xl w-full max-w-md p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center">
+                  <Trash2 className="w-5 h-5 text-red-600" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900">Delete Multiple Grades</h3>
+                  <p className="text-sm text-gray-500">{selectedGrades.size} grade{selectedGrades.size > 1 ? 's' : ''} selected</p>
+                </div>
+              </div>
+              
+              <p className="text-gray-600 mb-4">
+                Are you sure you want to delete the selected grades? This will remove all semester grades for the selected courses.
+              </p>
+
+              <div className="bg-gray-50 rounded-lg p-3 mb-6 max-h-32 overflow-y-auto">
+                <ul className="text-sm text-gray-600 space-y-1">
+                  {grades.filter(g => selectedGrades.has(g.id)).map(g => (
+                    <li key={g.id} className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 bg-red-400 rounded-full"></span>
+                      {g.course_name} ({g.calendar_year})
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setShowBulkDeleteConfirm(false)}
+                  className="flex-1 py-2.5 bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium rounded-xl"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleBulkDelete}
+                  disabled={isBulkDeleting}
+                  className="flex-1 py-2.5 bg-red-600 hover:bg-red-700 disabled:bg-red-300 text-white font-medium rounded-xl flex items-center justify-center gap-2"
+                >
+                  {isBulkDeleting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
+                  Delete {selectedGrades.size} Grade{selectedGrades.size > 1 ? 's' : ''}
+                </button>
+              </div>
             </div>
           </div>
         )}
