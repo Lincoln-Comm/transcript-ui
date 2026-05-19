@@ -1984,6 +1984,7 @@ function StudentsContent() {
         status: data.status || 'ACTIVE',
         year_group: data.year_group || null,
         entry_grade: data.entry_grade || null,
+        graduation_date: data.graduation_date || null,
       };
 
       if (editStudent) {
