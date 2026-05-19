@@ -659,7 +659,7 @@ function StudentGradesModal({
             course_name: grade.course?.course_name || '',
             course_description: grade.course?.course_description || null,
             course_level: grade.course?.course_level || '',
-            grade_level: grade.grade_level || null,
+            grade_level: grade.course?.grade_level || null,
             calendar_year: grade.calendar_year,
             sem1_grade: null,
             sem2_grade: null,

@@ -348,12 +348,12 @@ export interface GradeAPI {
   calendar_year: number;
   semester: string;
   grade: string;
-  grade_level?: string;
   course?: {
     id: string;
     course_name: string;
     course_description: string | null;
     course_level: string;
+    grade_level: string;
   };
 }
 
@@ -378,7 +378,6 @@ export async function createGrade(grade: {
   calendar_year: number;
   semester: string;
   grade: string;
-  grade_level?: string;
 }): Promise<GradeAPI> {
   return fetchAPI<GradeAPI>('/grades', {
     method: 'POST',
