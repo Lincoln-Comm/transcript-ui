@@ -57,6 +57,7 @@ interface StudentFormData {
   year_group: string;
   entry_grade: string;
   unique_id: string;
+  graduation_date: string;
 }
 
 const emptyFormData: StudentFormData = {
@@ -74,6 +75,7 @@ const emptyFormData: StudentFormData = {
   year_group: '',
   entry_grade: '',
   unique_id: '',
+  graduation_date: '',
 };
 
 function ActionMenu({ 
@@ -213,6 +215,7 @@ function ViewStudentModal({
     { label: 'Email', value: student.student_email || '-' },
     { label: 'Year Group', value: student.year_group || '-' },
     { label: 'Entry Grade', value: student.entry_grade || '-' },
+    { label: 'Graduation Date', value: student.graduation_date ? formatDate(student.graduation_date) : '-' },
     { label: 'Status', value: student.status || '-' },
   ];
 
@@ -447,6 +450,16 @@ function StudentFormModal({
                   onChange={(e) => handleChange('entry_grade', e.target.value)}
                   className={inputClass}
                   placeholder="e.g., Grade 9"
+                />
+              </div>
+
+              <div>
+                <label className={labelClass}>Graduation Date</label>
+                <input
+                  type="date"
+                  value={formData.graduation_date}
+                  onChange={(e) => handleChange('graduation_date', e.target.value)}
+                  className={inputClass}
                 />
               </div>
 
@@ -2238,6 +2251,7 @@ function StudentsContent() {
             year_group: editStudent.year_group || '',
             entry_grade: editStudent.entry_grade || '',
             unique_id: editStudent.unique_id || '',
+            graduation_date: editStudent.graduation_date || '',
           } : emptyFormData}
           isEdit={!!editStudent}
           onClose={() => { setShowAddModal(false); setEditStudent(null); }}
