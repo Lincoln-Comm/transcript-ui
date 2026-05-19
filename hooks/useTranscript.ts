@@ -38,12 +38,12 @@ export function useTranscript(studentId: string | null): UseTranscriptResult {
       
       // Log each year's courses
       Object.entries(data.transcript).forEach(([year, yearData]) => {
-        console.log(`  📅 ${year}:`, yearData);
+        console.log(`${year}:`, yearData);
       });
       
       setTranscript(data);
     } catch (err) {
-      console.error('❌ Error fetching transcript:', err);
+      console.error('Error fetching transcript:', err);
       setError(err instanceof Error ? err.message : 'Failed to fetch transcript');
     } finally {
       setIsLoading(false);

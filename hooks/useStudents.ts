@@ -25,13 +25,13 @@ export function useStudents(): UseStudentsResult {
       const data = await getStudentsList();
       
       // Console log the API response
-      console.log('📚 Students List API Response:', data);
-      console.log(`📊 Total students fetched: ${data.length}`);
+      console.log(' Students List API Response:', data);
+      console.log(`Total students fetched: ${data.length}`);
       
       setStudents(data);
       setAllStudents(data);
     } catch (err) {
-      console.error('❌ Error fetching students:', err);
+      console.error('Error fetching students:', err);
       setError(err instanceof Error ? err.message : 'Failed to fetch students');
     } finally {
       setIsLoading(false);
@@ -58,7 +58,7 @@ export function useStudents(): UseStudentsResult {
       `${student.first_name} ${student.last_name}`.toLowerCase().includes(lowerQuery)
     );
     
-    console.log(`🔍 Search "${query}" found ${filtered.length} students`);
+    console.log(`Search "${query}" found ${filtered.length} students`);
     setStudents(filtered);
   }, [allStudents]);
 
