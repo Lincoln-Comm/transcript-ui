@@ -363,8 +363,8 @@ function StudentFormModal({
                   <option value="">Select gender</option>
                   <option value="M">Male</option>
                   <option value="F">Female</option>
-                  <option value="M">Non-Binary</option>
-                  <option value="F">Preferred Not to Say</option>
+                  <option value="NB">Non-Binary</option>
+                  <option value="PNS">Preferred Not to Say</option>
                 </select>
               </div>
 
