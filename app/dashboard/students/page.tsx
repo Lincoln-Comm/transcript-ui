@@ -3959,7 +3959,7 @@ function StudentGradesModal({
                     setShowAddGrade(false);
                     setCourseSearch('');
                     setShowCourseDropdown(false);
-                    setNewGrade({ course_id: '', calendar_year: '', sem1_grade: '', sem2_grade: '' });
+                    setNewGrade({ course_id: '', calendar_year: '', sem1_grade: '', sem2_grade: '', grade_level: '' });
                   }}
                   className="flex-1 py-2.5 bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium rounded-xl"
                 >
