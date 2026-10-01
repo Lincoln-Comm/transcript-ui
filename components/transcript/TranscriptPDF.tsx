@@ -61,25 +61,21 @@ const styles = StyleSheet.create({
   page: {
     padding: 5,
     paddingHorizontal: 20,
-    paddingBottom: 15,
+    paddingBottom: 10,
     fontSize: 8,
     fontFamily: 'Poppins',
     backgroundColor: '#ffffff',
-  },
-  // Bottom section (no longer fixed - flows naturally)
-  fixedBottom: {
-    marginTop: 'auto', // Push to bottom if there's space
   },
   // Header
   header: { 
     flexDirection: 'row',
     justifyContent: 'space-between', 
     alignItems: 'flex-start', 
-    marginBottom: 2, // Reduced from 3
-    marginTop: 8, // Reduced from 10
+    marginBottom: 2,
+    marginTop: 8,
     borderBottomWidth: 1,
     borderBottomColor: '#e5e7eb', 
-    paddingBottom: 2 // Reduced from 3
+    paddingBottom: 2
   },
   schoolLogo: {
     flexDirection: 'row',
@@ -140,9 +136,9 @@ const styles = StyleSheet.create({
   studentInfo: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 2, // Reduced from 3
+    marginBottom: 2,
     paddingVertical: 0,
-    marginTop: 2, // Reduced from 3
+    marginTop: 2,
   },
   studentInfoLeft: {
     gap: 0,
@@ -164,7 +160,7 @@ const styles = StyleSheet.create({
   },
   // Academic Year Section
   academicYearSection: {
-    marginBottom: 2, 
+    marginBottom: 2,
   },
   sectionHeader: {
     flexDirection: 'row',
@@ -273,7 +269,7 @@ const styles = StyleSheet.create({
   // Signature
   signatureSection: {
     marginTop: 2,
-    marginBottom: 0,
+    marginBottom: 2,
   },
   signatureLine: {
     width: 100,
@@ -291,17 +287,18 @@ const styles = StyleSheet.create({
     color: '#6b7280',
   },
   signatureImage: {
-    width: 50,
+    width: 100,
+    height: 'auto',
     objectFit: 'contain',
     paddingBottom: 0,
     marginBottom: 0,
   },
-  // Grading Scale
+  // Bottom Section - Grading Scale + Notes (NO FIXED POSITIONING)
   bottomSection: {
     flexDirection: 'row',
-    marginTop: 0,
+    marginTop: 2,
     justifyContent: 'space-between', 
-    paddingHorizontal: 30, 
+    paddingHorizontal: 30,
   },
   gradingScale: {
     flex: 6,
@@ -379,7 +376,7 @@ const styles = StyleSheet.create({
     color: '#07080aff',
     fontStyle: 'italic',
     textAlign: 'center',
-    lineHeight: 1.3, 
+    lineHeight: 1.3,
   },
   accreditationLogos: {
     flexDirection: 'row',
@@ -388,16 +385,8 @@ const styles = StyleSheet.create({
   },
   accreditationImage: {
     width: 320,
-    height: 30,
+    height: 40,
     objectFit: 'contain',
-  },
-  accreditationLogo: {
-    width: 30,
-    height: 30,
-    backgroundColor: '#e5e7eb',
-    borderRadius: 4,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });
 
@@ -467,7 +456,7 @@ const TranscriptPDF = ({ data, gradingScale }: TranscriptPDFProps) => (
           <View style={styles.sectionHeader}>
             <View style={styles.sectionHeaderSubject}>
               <Text style={styles.sectionHeaderText}>
-                {academicYear.program} - All courses are IB subjects, unless indicated as LCS   {academicYear.gradeLevel}  {academicYear.academicYear}
+                {academicYear.program} - All courses are IB subjects, unless indicated as LCS - {academicYear.gradeLevel} - {academicYear.academicYear}
               </Text>
             </View>
             <View style={styles.sectionHeaderGrade}>
@@ -510,89 +499,86 @@ const TranscriptPDF = ({ data, gradingScale }: TranscriptPDFProps) => (
           </View>
         </View>
       ))}
+
       {/* Signature */}
-       {/* Signature */}
-        <View style={styles.signatureSection}>
-          <Image 
-            src="/images/principal_signature.png" 
-            style={styles.signatureImage} 
-          />
-          <View style={styles.signatureLine} />
-          <Text style={styles.signatureName}>{data.principalName}</Text>
-          <Text style={styles.signatureTitle}>{data.principalTitle}</Text>
-        </View>
-      {/* Fixed Bottom Section */}
-      <View style={styles.fixedBottom}>
+      <View style={styles.signatureSection}>
+        <Image 
+          src="/images/principal_signature.png" 
+          style={styles.signatureImage} 
+        />
+        <View style={styles.signatureLine} />
+        <Text style={styles.signatureName}>{data.principalName}</Text>
+        <Text style={styles.signatureTitle}>{data.principalTitle}</Text>
+      </View>
 
-        {/* Bottom Section: Grading Scale + Notes */}
-        <View style={styles.bottomSection}>
-          {/* Grading Scale */}
-          <View style={styles.gradingScale}>
-            <View style={styles.gradingScaleHeader}>
-              <View style={[styles.gradingScaleHeaderCell, styles.gradeCol]}>
-                <Text>IB</Text>
-              </View>
-              <View style={[styles.gradingScaleHeaderCell, styles.descCol]}>
-                <Text>LCS Descriptor</Text>
-              </View>
-              <View style={[styles.gradingScaleHeaderCell, styles.shortDescCol]}>
-                <Text>Descriptor</Text>
-              </View>
+      {/* Bottom Section: Grading Scale + Notes - FLOWS NATURALLY, NO FIXED POSITION */}
+      <View style={styles.bottomSection}>
+        {/* Grading Scale */}
+        <View style={styles.gradingScale}>
+          <View style={styles.gradingScaleHeader}>
+            <View style={[styles.gradingScaleHeaderCell, styles.gradeCol]}>
+              <Text>IB</Text>
             </View>
-            {gradingScale.map((item, index) => {
-              const isLastRow = index === gradingScale.length - 1;
-              return (
-                <View key={item.grade} style={[
-                  styles.gradingScaleRow,
-                  isLastRow ? { borderBottomWidth: 0 } : {}
-                ]}>
-                  <View style={[styles.gradingScaleCell, styles.gradeCol]}>
-                    <Text>{item.grade}</Text>
-                  </View>
-                  <View style={[styles.gradingScaleCell, styles.descCol]}>
-                    <Text>{item.lcsDescriptor}</Text>
-                  </View>
-                  <View style={[styles.gradingScaleCell, styles.shortDescCol]}>
-                    <Text>{item.descriptor}</Text>
-                  </View>
+            <View style={[styles.gradingScaleHeaderCell, styles.descCol]}>
+              <Text>LCS Descriptor</Text>
+            </View>
+            <View style={[styles.gradingScaleHeaderCell, styles.shortDescCol]}>
+              <Text>Descriptor</Text>
+            </View>
+          </View>
+          {gradingScale.map((item, index) => {
+            const isLastRow = index === gradingScale.length - 1;
+            return (
+              <View key={item.grade} style={[
+                styles.gradingScaleRow,
+                isLastRow ? { borderBottomWidth: 0 } : {}
+              ]}>
+                <View style={[styles.gradingScaleCell, styles.gradeCol]}>
+                  <Text>{item.grade}</Text>
                 </View>
-              );
-            })}
-          </View>
-
-          {/* Notes */}
-          <View style={styles.notesSection}>
-            <Text style={styles.noteText}>
-              • All high school students are enrolled in an US college preparatory curriculum in which English is the language of instruction.
-            </Text>
-            <Text style={styles.noteText}>
-              • Students are awarded a US accredited High School Diploma after completing 24 units of credit. Students also have the option of pursuing an IB Diploma.
-            </Text>
-            <Text style={styles.noteText}>
-              • Courses and credits earned from other schools are not reported on this transcript.
-            </Text>
-            <Text style={styles.noteText}>
-              • LCS does not calculate Grade Points Average (GPA) or rank students.
-            </Text>
-          </View>
+                <View style={[styles.gradingScaleCell, styles.descCol]}>
+                  <Text>{item.lcsDescriptor}</Text>
+                </View>
+                <View style={[styles.gradingScaleCell, styles.shortDescCol]}>
+                  <Text>{item.descriptor}</Text>
+                </View>
+              </View>
+            );
+          })}
         </View>
 
-        {/* Footer */}
-        <View style={styles.footer}>
-          <Text style={styles.footerText}>
-            This transcript is official when stamped by a school official and received in a sealed envelope or electronically through a secure system.
+        {/* Notes */}
+        <View style={styles.notesSection}>
+          <Text style={styles.noteText}>
+            • All high school students are enrolled in an US college preparatory curriculum in which English is the language of instruction.
           </Text>
-          <Text style={styles.footerText}>
-            {data.schoolName} is fully accredited by the Middle States Association of Colleges and Schools, the International Baccalaureate Organization and the Council of International Schools
+          <Text style={styles.noteText}>
+            • Students are awarded a US accredited High School Diploma after completing 24 units of credit. Students also have the option of pursuing an IB Diploma.
           </Text>
+          <Text style={styles.noteText}>
+            • Courses and credits earned from other schools are not reported on this transcript.
+          </Text>
+          <Text style={styles.noteText}>
+            • LCS does not calculate Grade Points Average (GPA) or rank students.
+          </Text>
+        </View>
+      </View>
 
-          {/* Accreditation Logos */}
-          <View style={styles.accreditationLogos}>
-            <Image 
-              src="/images/IB_partners.png" 
-              style={styles.accreditationImage} 
-            />
-          </View>
+      {/* Footer */}
+      <View style={styles.footer}>
+        <Text style={styles.footerText}>
+          This transcript is official when stamped by a school official and received in a sealed envelope or electronically through a secure system.
+        </Text>
+        <Text style={styles.footerText}>
+          {data.schoolName} is fully accredited by the Middle States Association of Colleges and Schools, the International Baccalaureate Organization and the Council of International Schools
+        </Text>
+
+        {/* Accreditation Logos */}
+        <View style={styles.accreditationLogos}>
+          <Image 
+            src="/images/IB_partners.png" 
+            style={styles.accreditationImage} 
+          />
         </View>
       </View>
     </Page>
