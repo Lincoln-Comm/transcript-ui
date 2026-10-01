@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
   },
   // Academic Year Section
   academicYearSection: {
-    marginBottom: 2, // Reduced from 3
+    marginBottom: 2, 
   },
   sectionHeader: {
     flexDirection: 'row',

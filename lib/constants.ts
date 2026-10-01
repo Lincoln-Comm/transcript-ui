@@ -22,7 +22,7 @@ export const schoolInfo = {
     web: 'www.lincoln.edu.gh',
   },
   principal: {
-    name: 'Jennifer Hager',
+    name: 'Robert Jackson',
     title: 'Secondary School Principal',
   },
 };
