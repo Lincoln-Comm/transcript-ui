@@ -65,6 +65,12 @@ const styles = StyleSheet.create({
     fontSize: 8,
     fontFamily: 'Poppins',
     backgroundColor: '#ffffff',
+    flexDirection: 'column',
+    minHeight: '100%',
+  },
+  // Wrapper to push bottom content down
+  bottomWrapper: {
+    marginTop: 'auto',
   },
   // Header
   header: { 
@@ -500,7 +506,7 @@ const TranscriptPDF = ({ data, gradingScale }: TranscriptPDFProps) => (
         </View>
       ))}
 
-      {/* Signature */}
+      {/* Signature - stays close to grades */}
       <View style={styles.signatureSection}>
         <Image 
           src="/images/principal_signature.png" 
@@ -511,8 +517,10 @@ const TranscriptPDF = ({ data, gradingScale }: TranscriptPDFProps) => (
         <Text style={styles.signatureTitle}>{data.principalTitle}</Text>
       </View>
 
-      {/* Bottom Section: Grading Scale + Notes - FLOWS NATURALLY, NO FIXED POSITION */}
-      <View style={styles.bottomSection}>
+      {/* Bottom Content - pushed to bottom of page */}
+      <View style={styles.bottomWrapper}>
+        {/* Bottom Section: Grading Scale + Notes */}
+        <View style={styles.bottomSection}>
         {/* Grading Scale */}
         <View style={styles.gradingScale}>
           <View style={styles.gradingScaleHeader}>
@@ -580,6 +588,7 @@ const TranscriptPDF = ({ data, gradingScale }: TranscriptPDFProps) => (
             style={styles.accreditationImage} 
           />
         </View>
+      </View>
       </View>
     </Page>
   </Document>
