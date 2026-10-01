@@ -8,7 +8,7 @@ interface CoursesTableProps {
 
 const CoursesTable = ({ academicYear }: CoursesTableProps) => {
   const programLabel = academicYear.program === 'DP' ? 'DP' : 'MYP';
-  const headerText = `${programLabel} - All courses are IB subjects, unless indicated as LCS - ${academicYear.gradeLevel} - ${academicYear.academicYear}`;
+  const headerText = `${programLabel} - All courses are IB subjects, unless indicated as LCS   ${academicYear.gradeLevel}  ${academicYear.academicYear}`;
 
   return (
     <div className="mb-4">

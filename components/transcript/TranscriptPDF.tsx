@@ -467,7 +467,7 @@ const TranscriptPDF = ({ data, gradingScale }: TranscriptPDFProps) => (
           <View style={styles.sectionHeader}>
             <View style={styles.sectionHeaderSubject}>
               <Text style={styles.sectionHeaderText}>
-                {academicYear.program} - All courses are IB subjects, unless indicated as LCS - {academicYear.gradeLevel} - {academicYear.academicYear}
+                {academicYear.program} - All courses are IB subjects, unless indicated as LCS   {academicYear.gradeLevel}  {academicYear.academicYear}
               </Text>
             </View>
             <View style={styles.sectionHeaderGrade}>
